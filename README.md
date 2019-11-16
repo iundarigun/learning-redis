@@ -282,9 +282,65 @@ To increase points:
 127.0.0.1:6379> ZINCRBY "players:ranking" 5000 "player1"
 ```
 
+## Transactions
+
+We can do transactions using the key words `multi` and `exec`
+```
+127.0.0.1:6379> multi
+OK
+127.0.0.1:6379> set num 10
+QUEUED
+127.0.0.1:6379> incrby num 10
+QUEUED
+127.0.0.1:6379> exec
+1) OK
+2) (integer) 20
+```
+To cancel transaction we can use the key word `discard`:
+```
+127.0.0.1:6379> multi
+OK
+127.0.0.1:6379> set num 10
+QUEUED
+127.0.0.1:6379> incrby num 10
+QUEUED
+127.0.0.1:6379> discard
+OK
+```
+
+If we want cancel the transaction if someone changes some key:
+```
+127.0.0.1:6379> watch num
+OK
+127.0.0.1:6379> multi
+OK
+127.0.0.1:6379> set num 10
+QUEUED
+```
+if until do exec in this transaction, someone change the key, the exec will not work:
+```
+127.0.0.1:6379> exec
+(nil)
+```
+
+### Security
+We can secure our redis configuring a password. We can do this in the configfile or on cli:
+```
+127.0.0.1:6379> config set requirepass root
+```
+After this we need auth before execute any command:
+```
+127.0.0.1:6379> auth root
+```
+
 ### Cloud redis
 app.redislabs.com is a cloud redis. We can create an account to play.
 
+## Cluster and Sentinel
+
+Sentinel is a way to brings high availability and recover failures, because we can configure some slaves to get the place of master when something wrong happens with the master.
+
+Cluster brings high availability too, but not only this, but also brings data sharing, using the hash of key to decided the slot destination. Clusters divide 16.000 slots aprox, and the destination slot is decided using the module of hash to the number of slots.
 
 ## Spring and Redis
 
