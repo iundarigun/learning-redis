@@ -19,7 +19,7 @@ class SwaggerConfiguration {
     fun swaggerSettings(servletContext: ServletContext): Docket {
         return Docket(DocumentationType.SWAGGER_2)
             .select()
-            .apis(RequestHandlerSelectors.basePackage("br.com.devcave.api.controller"))
+            .apis(RequestHandlerSelectors.basePackage("br.com.devcave.redis.controller"))
             .paths(PathSelectors.any())
             .build()
     }

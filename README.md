@@ -108,6 +108,10 @@ Setting a ttl. **Expire is in seconds**:
 127.0.0.1:6379> HMSET "session:user:2110" "name" "Oriol" "last name" "Canalias"
 127.0.0.1:6379> EXPIRE "session:user:2110" 60
 ```
+In some instructions, we can do the same on a single instruction:
+```
+127.0.0.1:6379> SET "some:words:here" "Wellcome with expiration" EX 20
+```
 
 To view the expire time left:
 ```
@@ -358,3 +362,5 @@ We can use redis for a few thinks with Spring-boot. In this repo, there is a fol
 - Post [Spring Redis Tutorial](https://www.baeldung.com/spring-data-redis-tutorial) from baeldung.com
 - Post [Embedded Redis Server](https://www.baeldung.com/spring-embedded-redis) form baeldung.com
 - Lib [Redis embedded server](https://github.com/kstyrc/embedded-redis) on github.com
+- Post [PubSub Messaging with Spring Data Redis](https://www.baeldung.com/spring-data-redis-pub-sub) form baeldung.com
+- Book [Redis](https://www.casadocodigo.com.br/products/livro-redis)

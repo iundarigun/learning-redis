@@ -1,4 +1,10 @@
 package br.com.devcave.redis.domain
 
-class Employee {
-}
+import java.time.LocalDate
+
+data class Employee(
+    val name: String,
+    val document: String,
+    val collageCompletedYear: Int?,
+    val bornAt: LocalDate
+)

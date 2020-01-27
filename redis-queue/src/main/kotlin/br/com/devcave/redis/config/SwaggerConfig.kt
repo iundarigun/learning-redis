@@ -1,6 +1,5 @@
 package br.com.devcave.redis.config
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Configuration
 import org.springframework.stereotype.Controller
 import springfox.documentation.swagger2.annotations.EnableSwagger2
@@ -15,16 +14,12 @@ import org.springframework.context.annotation.Bean
 @Controller
 @Configuration
 @EnableSwagger2
-@ConditionalOnProperty(
-    value = ["balancer.enable-swagger"],
-    havingValue = "true",
-    matchIfMissing = false)
 class SwaggerConfig {
     @Bean
     fun swaggerSettings(servletContext: ServletContext): Docket {
         return Docket(DocumentationType.SWAGGER_2)
             .select()
-            .apis(RequestHandlerSelectors.basePackage("global.wavy.balancer.controller"))
+            .apis(RequestHandlerSelectors.basePackage("br.com.devcave.redis.controller"))
             .paths(PathSelectors.any())
             .build()
     }
