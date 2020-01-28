@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -26,6 +27,12 @@ class EmployeeController(
         } ?: ResponseEntity.notFound().build()
     }
 
+    @GetMapping("findByParams")
+    fun findByParams(@RequestParam name: String, @RequestParam document: String): HttpEntity<Employee?> {
+        return employeeService.findByNameAndDocument(name, document)?.let {
+            ResponseEntity.ok(it)
+        } ?: ResponseEntity.ok().build()
+    }
     @GetMapping("count")
     fun count(): HttpEntity<Long> {
         return ResponseEntity.ok(employeeService.count())

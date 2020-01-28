@@ -6,8 +6,8 @@ spring:
     port: 6379
   cache:
     type: redis
-    redis:
-      time-to-live: 20_000
+#    redis:
+#      time-to-live: 20_000
 
 server:
   port: 1980

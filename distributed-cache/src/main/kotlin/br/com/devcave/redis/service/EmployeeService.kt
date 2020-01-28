@@ -16,6 +16,11 @@ class EmployeeService(
         return employeeRepository.findById(id)
     }
 
+    fun findByNameAndDocument(name: String, document: String): Employee? {
+        log.info("findByNameAndDocument name $name, document $document")
+        return employeeRepository.findByNameAndDocument(name, document)
+    }
+
     fun findAll(): List<Employee> {
         log.info("findAll")
         return employeeRepository.findAll()

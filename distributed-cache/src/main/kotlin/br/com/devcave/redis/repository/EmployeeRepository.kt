@@ -19,6 +19,12 @@ class EmployeeRepository {
         return createEmployee()
     }
 
+    @Cacheable("findByNameAndDocument")
+    fun findByNameAndDocument(name: String, document: String): Employee? {
+        log.info("findByNameAndDocument name $name, document $document, not cache available")
+        return createEmployee()
+    }
+
     @Cacheable("findAll")
     fun findAll(): List<Employee> {
         log.info("findAll, not cache available")
