@@ -1,6 +1,11 @@
 # REDIS
 This repo is the result of studing Redis. See `references` section to understand better the path follow.
 
+## Definition
+Redis means **RE**mote **DI**ctionary **S**erver. 
+- All commands in Redis are executed atomically. This is guaranteed for the way to Redis works.
+
+
 ## Install
 To install redis, we can go to the official site: https://redis.io/download
 
@@ -286,7 +291,7 @@ To increase points:
 127.0.0.1:6379> ZINCRBY "players:ranking" 5000 "player1"
 ```
 
-## Transactions
+### Transactions
 
 We can do transactions using the key words `multi` and `exec`
 ```
@@ -327,6 +332,26 @@ if until do exec in this transaction, someone change the key, the exec will not 
 (nil)
 ```
 
+### Pub-Sub
+Redis is used like a queue. The operation of PubSub seems very simple, but this is one of the main characteristics, like its performance
+
+To put message in a channel:
+```
+127.0.0.1:6379> PUBLISH "channel-1" "message 1"
+```
+If the return is **0** means that doesn't exists any subscriber at this channel and no one receives the message. To create a subscribe:
+```
+127.0.0.1:6379> SUBSCRIBE "channel-1"
+```
+
+### Lua Scripts
+
+Sometimes we need to execute some instructions without any interaction with data from others connections. Redis garantee atomic executions from one instrucions, but by default no for more than one. Lua Script resolve this problem using EVAL instruction:
+```
+127.0.0.1:6379> EVAL "local members  = redis.call('smembers', KEYS[1]) \n for mem=1,#members do return members[mem] end" 1 "somesetkey"
+```
+The first argument is the Lua script, the second is the size of the array of keys, and the next arguments are the list of keys.
+
 ### Security
 We can secure our redis configuring a password. We can do this in the configfile or on cli:
 ```
@@ -339,6 +364,20 @@ After this we need auth before execute any command:
 
 ### Cloud redis
 app.redislabs.com is a cloud redis. We can create an account to play.
+
+## Instance configuration
+
+### Storage
+We can configure two ways to store data:
+- RDB is the most popular. It is the default option. Data is persisted asynchronous, on scheduled intervals, that we can configure. In the case of server crashes, we can lose some data.
+- AOF configuration saves a log for every operation, saved in a single file. When Redis restarts data will be rebuilding from this log file. No data will be lost, but performance can be reduced.
+
+### Database schema
+Redis has this concept, but by default the first database schema is active and we change the active database schema we can use:
+ ```
+ 127.0.0.1:6379> select <number of schema>
+ ```
+ By default, Redis brings to us 16 database schemas, identified for a number, and the zero is the default database's schema.
 
 ## Cluster and Sentinel
 
@@ -364,3 +403,4 @@ We can use redis for a few thinks with Spring-boot. In this repo, there is a fol
 - Lib [Redis embedded server](https://github.com/kstyrc/embedded-redis) on github.com
 - Post [PubSub Messaging with Spring Data Redis](https://www.baeldung.com/spring-data-redis-pub-sub) form baeldung.com
 - Book [Redis](https://www.casadocodigo.com.br/products/livro-redis)
+- Annotations for the book [Annotations](https://docs.google.com/document/d/1WRHPQZfVoD054B32ZR7AIlSjVkjcux1xNc51hJW6Ewc/edit)
