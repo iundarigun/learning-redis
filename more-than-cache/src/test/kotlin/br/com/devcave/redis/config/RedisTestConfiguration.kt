@@ -9,7 +9,8 @@ import javax.annotation.PreDestroy
 @TestConfiguration
 class RedisTestConfiguration(
     @Value("\${spring.redis.port}")
-    private val redisPort: Int) {
+    private val redisPort: Int
+) {
     private val redisServer: RedisServer = RedisServer(redisPort)
 
     @PostConstruct
