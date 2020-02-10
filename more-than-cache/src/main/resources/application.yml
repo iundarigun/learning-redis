@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: more-than-cache
+  redis:
+    host: localhost
+    port: 6379
+instances:
+  ttl: 1
+
+server:
+  port: 1980

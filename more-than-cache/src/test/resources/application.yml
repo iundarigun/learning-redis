@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: more-than-cache
+  profiles:
+    active: test
+  redis:
+    host: localhost
+    port: 6370
+instances:
+  ttl: 1
