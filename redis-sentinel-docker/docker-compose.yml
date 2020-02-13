@@ -1,0 +1,30 @@
+version: '3'
+services:
+  redis1:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis1.conf
+    volumes: 
+      - ./:/usr/local/etc/redis
+    ports: 
+      - "6379:6379"
+
+  redis2:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis2.conf
+    volumes:
+      - ./:/usr/local/etc/redis    
+    ports: 
+      - "6380:6380"
+    links: 
+      - redis1:redis1
+  
+  sentinel:
+    image: redis
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
+    volumes:
+      - ./:/usr/local/etc/redis    
+    ports: 
+      - "26379:26379"
+    links: 
+      - redis1:redis1
+      - redis2:redis2
