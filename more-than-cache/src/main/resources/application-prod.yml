@@ -1,0 +1,6 @@
+spring:
+  redis:
+    sentinel:
+      nodes: localhost:26379
+      master: cluster-docker
+    password: devcave
