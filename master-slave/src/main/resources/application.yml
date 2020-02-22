@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: master-slave
+  redis:
+    port: 6379
+    password: devcave
+    host: localhost
+  redis-slave:
+    port: 6380
+    password: devcave
+    host: localhost
+
+server:
+  port: 1980
