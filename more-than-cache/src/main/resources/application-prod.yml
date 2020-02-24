@@ -2,5 +2,5 @@ spring:
   redis:
     sentinel:
       nodes: localhost:26379
-      master: cluster-docker
+      master: sentinel-redis
     password: devcave
