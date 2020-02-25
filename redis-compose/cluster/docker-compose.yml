@@ -53,3 +53,15 @@ services:
       - ./:/usr/local/etc/redis    
     ports: 
       - "6386:6386"
+
+  redis-config:
+    image: redis
+    network_mode: host 
+    command: bash -c "yes yes | redis-cli -p 6381 --cluster create 127.0.0.1:6381 127.0.0.1:6382 127.0.0.1:6383 127.0.0.1:6384 127.0.0.1:6385 127.0.0.1:6386 --cluster-replicas 1"
+    depends_on:
+      - redis1
+      - redis2
+      - redis3
+      - redis4
+      - redis5  
+      - redis6

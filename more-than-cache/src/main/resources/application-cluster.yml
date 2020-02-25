@@ -1,0 +1,6 @@
+spring:
+  redis:
+    cluster:
+      nodes: localhost:6381,localhost:6382,localhost:6383
+instances:
+  ttl: 60
