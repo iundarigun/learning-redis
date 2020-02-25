@@ -16,6 +16,7 @@ repositories {
 }
 
 val swaggerVersion = "2.9.2"
+val springCloudVersion = "Hoxton.SR1"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
@@ -29,6 +30,13 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+	}
+	implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
+}
+
+dependencyManagement {
+	imports {
+		mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
 	}
 }
 
